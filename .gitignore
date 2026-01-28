@@ -1,0 +1,23 @@
+# Ignorar archivos del sistema de Windows
+desktop.ini
+Thumbs.db
+
+# Ignorar metadatos de macOS (por si compartes carpetas con otros)
+.DS_Store
+
+# Ignorar carpetas de sincronización de nubes comunes
+# (Descomenta las que uses)
+# OneDrive/
+# Google Drive/
+# Dropbox/
+
+# Ignorar logs o temporales
+*.log
+*.tmp
+
+# Ignorar node_modules si trabajas con proyectos JavaScript
+node_modules/
+
+# Ignorar archivos de entorno
+.env
+*.mp4

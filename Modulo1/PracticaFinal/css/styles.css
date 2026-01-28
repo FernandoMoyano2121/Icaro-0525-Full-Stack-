@@ -1,0 +1,199 @@
+/* --color-primario */
+
+:root {
+  --color-primario: #f59e0b; /* Azul principal */
+  --color-primario-hover: #fcba48; /* Azul más oscuro para hover */
+  --color-secundario: #0f172a; /* Azul muy oscuro / casi negro */
+  --color-acento: #f59e0b; /* Naranja/Amarillo para acentos */
+  --color-texto: #334155; /* Gris oscuro para texto */
+  --color-fondo-claro: #f8fafc; /* Gris muy claro para fondos */
+  --color-blanco: #ffffff;
+}
+
+.btn-primary {
+  background-color: var(--color-primario);
+  border-color: var(--color-primario);
+}
+.btn-primary:hover {
+  background-color: var(--color-primario-hover);
+  border-color: var(--color-primario-hover);
+}
+
+.navbar-dark {
+  background-color: var(--color-secundario);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: var(--color-primario);
+  font-weight: 500;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: var(--color-primario-hover);
+}
+
+/***** Reset *****/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins";
+  color: var(--color-texto);
+}
+
+/***** End Reset *****/
+
+/***** Hero section *****/
+
+.hero {
+  /* Imagen de fondo */
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.8)),
+    url("https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80");
+
+  background-size: cover;
+  background-position: center;
+  /* Dimensiones */
+  min-height: 100vh;
+  width: 100%;
+
+  /* flexbox */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* Texto */
+  text-align: center;
+  color: var(--color-blanco);
+  padding: 2rem;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.hero .btn {
+  padding: 0.875rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/***** End Hero section *****/
+
+/***** Sobre Nosotros *****/
+
+.sobre-nosotros {
+  padding: 5rem 0;
+}
+
+.seccion-titulo {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.seccion-titulo h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-secundario);
+  margin-bottom: 0.5rem;
+}
+
+.seccion-titulo p {
+  color: var(--color-texto);
+  font-size: 1.1rem;
+}
+.sobre-nosotros-imagen img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.sobre-nosotros-texto h3 {
+  font-size: 1.75rem;
+  color: var(--color-secundario);
+  margin-bottom: 1rem;
+}
+
+.sobre-nosotros-texto p {
+  margin-bottom: 1rem;
+  color: var(--color-texto);
+}
+
+.caracteristicas-lista {
+  list-style: none;
+}
+
+.caracteristicas-lista li {
+  padding: 0.5rem 0;
+}
+
+.check-icon {
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-primario);
+  border-radius: 50%;
+  margin-right: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-blanco);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/***** End Sobre Nosotros *****/
+
+/***** Productos *****/
+
+.productos {
+  padding: 5rem 0;
+  background-color: var(--color-fondo-claro);
+}
+
+/* Grid */
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 350px));
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.producto-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.producto-imagen {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+/***** End Productos *****/

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- link bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Clase 7</title>
+  </head>
+  <body>
+    <p class="bg-success text-light">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
+    </p>
+
+    <div class="w-75 d-flex justify-content-center contenedor">
+      <div class="hijo">1</div>
+      <div class="hijo">2</div>
+      <div class="hijo">3</div>
+    </div>
+
+    <!-- CONTAINER -->
+
+    <p class="text-center container-fluid bg-warning">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
+    </p>
+
+    <!-- GRID -->
+
+    <br /><br /><br /><br />
+
+    <div class="container">
+      <div class="row overflow-hidden">
+        <div class="col-9 border col-sm-6 col-md-8 bg-secondary">1</div>
+        <div class="col border bg-warning">2</div>
+        <div class="col border bg-primary">3</div>
+      </div>
+
+      <div class="row">
+        <div class="col bg-warning">4</div>
+        <div class="col bg-primary">5</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8 bg-primary">6</div>
+        <div class="col-sm-4 bg-warning">7</div>
+      </div>
+    </div>
+
+    <!-- CARD -->
+
+    <main>
+      <section class="container">
+        <div class="row">
+          <div class="col card" style="width: 18rem">
+            <img
+              src="https://placehold.co/400"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card’s content.
+              </p>
+              <a href="#" class="btn btn-primary">Ver Más</a>
+            </div>
+          </div>
+
+          <div class="col card" style="width: rem">
+            <img
+              src="https://placehold.co/400"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text text-primary">
+                Some quick example text to build on the card title and make up
+                the bulk of the card’s content.
+              </p>
+              <a href="#" class="btn btn-primary">Ver Más</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- link bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

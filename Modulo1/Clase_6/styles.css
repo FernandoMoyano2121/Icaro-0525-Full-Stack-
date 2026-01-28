@@ -1,0 +1,176 @@
+/* HOVER  */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  font-family: "Poppins";
+}
+
+.button {
+  border: none;
+  width: 100px;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: bisque;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgb(250, 202, 143);
+  /* color: aliceblue; */
+}
+
+.button:active {
+  background-color: rgb(143, 83, 6);
+  color: aliceblue;
+}
+
+.article {
+  width: 200px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  background-color: rgb(154, 99, 26);
+  padding: 1rem;
+  color: white;
+}
+.article:hover {
+  margin-top: 2rem;
+  background-color: #8b5a19;
+  padding: 1rem;
+}
+
+.img {
+  height: 100px;
+}
+
+/* FOCUS */
+input {
+  border: 2px solid rgb(208, 207, 207);
+  outline: none;
+}
+
+input:focus {
+  border: 2px solid #a86d21;
+}
+
+/* VALID E INVALID */
+
+/* input:invalid {
+  outline: none;
+  border-color: red;
+}
+
+input:valid {
+  border-color: rgb(6, 178, 58);
+}
+ */
+
+/****************** PSEUDOCLASES DE POSICIÓN ****************/
+
+ul li {
+  list-style: none;
+}
+
+ul li:first-child {
+  color: blue;
+}
+
+ul li:last-child {
+  color: rgb(193, 35, 164);
+}
+
+ul li:nth-child(3) {
+  color: rgb(5, 105, 50);
+}
+
+/* ******************** PESUDOELEMENTOS ***************************** */
+
+h1::before {
+  content: " ▷ ";
+  color: rgb(11, 118, 83);
+}
+
+h1::after {
+  content: "🔔";
+  color: rgb(203, 121, 14);
+}
+
+.texto::first-letter {
+  font-size: 25px;
+  color: black;
+}
+
+.texto2::selection {
+  background-color: yellow;
+}
+
+/******************** TRANSICIONES Y TRANSFORMACIONES ***********************/
+
+/* .button1 {
+  border: none;
+  width: 100px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgb(115, 71, 17);
+  cursor: pointer;
+  color: white;
+  transition: background-color 1.5s ease-in;
+}
+ */
+.button1 {
+  border: none;
+  width: 100px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgb(115, 71, 17);
+  cursor: pointer;
+  color: white;
+  transition: transform 0.9s ease-in;
+}
+
+.button1:hover {
+  background-color: antiquewhite;
+  color: black;
+  /*   transform: scale(2.5);
+  transform: translate(50px, 100px); */
+  transform: rotate(-40deg);
+}
+
+/**************************** ANIMACIONES *****************************/
+
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 300px;
+  background-color: gray;
+  position: relative;
+}
+
+.ball {
+  width: 60px;
+  height: 60px;
+  background-color: chocolate;
+  position: absolute;
+  border-radius: 50%;
+  animation: pelotita 3s 3 ease-in-out;
+}
+
+@keyframes pelotita {
+  0% {
+    left: 120px;
+  }
+
+  50% {
+    left: 50px;
+  }
+
+  100% {
+    right: 15px;
+  }
+}

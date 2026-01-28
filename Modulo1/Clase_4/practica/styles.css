@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  font-family: "Montserrat";
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/**************************** HEADER *************************/
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.logo {
+  font-weight: bold;
+  color: #0034ff;
+}
+ul {
+  display: flex;
+  margin: 10px;
+  list-style: none;
+}
+
+li {
+  margin: 10px;
+}
+
+a {
+  font-size: 12px;
+  text-decoration: none;
+  color: #0034ff;
+}
+
+.btn {
+  border: none;
+  padding: 8px;
+  background-color: #0034ff;
+  color: white;
+  border-radius: 4px;
+}
+
+/********************* SECCION HERO ********************/
+.hero {
+  display: flex;
+  background-color: #0034ff;
+  align-items: center;
+  padding: 2rem;
+  justify-content: space-evenly;
+}
+.titulo {
+  color: white;
+}
+
+.descripcion {
+  color: white;
+  width: 40%;
+}
+
+/************** SECCION DIPLOMATURAS ********************/
+.diplomaturas {
+  padding: 2rem;
+}
+
+.filtros {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filtros button {
+  border: 1px solid #0034ff;
+  background-color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.filtros .activo {
+  background-color: #0034ff;
+  color: white;
+}
+
+.diplomaturas-grid {
+  display: flex;
+}
