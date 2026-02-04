@@ -4,6 +4,7 @@ Thumbs.db
 
 # Ignorar metadatos de macOS (por si compartes carpetas con otros)
 .DS_Store
+.github
 
 # Ignorar carpetas de sincronización de nubes comunes
 # (Descomenta las que uses)
