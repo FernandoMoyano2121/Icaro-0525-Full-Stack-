@@ -1,0 +1,9 @@
+.texto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 100px;
+  border-radius: 8px;
+  background-color: bisque;
+}
