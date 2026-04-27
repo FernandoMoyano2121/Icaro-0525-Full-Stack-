@@ -5,8 +5,11 @@ import { NavBar } from "./components/NavBar";
 import { Contacto } from "./components/Contacto";
 import { Footer } from "./components/Footer";
 import { EjemploParams } from "./parametros/EjemploParams";
+import { Login } from "./components/Login";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Dashboard } from "./components/Dashboard";
 
-/* export const App = () => {
+export const App = () => {
   return (
     <div>
       <BrowserRouter>
@@ -20,6 +23,17 @@ import { EjemploParams } from "./parametros/EjemploParams";
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/contacto" element={<Contacto />} />
+
+              {/* ----------------- RUTAS PROTEGIDAS -------------- */}
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </main>
           <Footer />
@@ -27,17 +41,21 @@ import { EjemploParams } from "./parametros/EjemploParams";
       </BrowserRouter>
     </div>
   );
-}; */
+};
 
-export const App = () => {
+/************************  USE PARAMS ****************************/
+
+/* export const App = () => {
   return (
     <div>
       <EjemploParams />
     </div>
   );
-};
+}; */
 
-/* const styles = {
+/************************  ESTILOS  ****************************/
+
+const styles = {
   container: {
     fontFamily: "Arial, sans-serif",
     maxWidth: "800px",
@@ -102,4 +120,3 @@ export const App = () => {
     textAlign: "center",
   },
 };
- */
