@@ -20,12 +20,19 @@ app.get("/", (req, res) => {
   res.render("index", { nombre: "Enrique", apellido: "Temperini" });
 });
 
-/* ----------------- Iteraciones y Listas ---------------------- */
+/* ----------------- Iteraciones y Listas 1---------------------- */
 
 app.get("/usuarios", (req, res) => {
   const usuarios = ["Ana", "Romina", "Enrique"];
-  res.render("index", { nombre: "Enrique", apellido: "Temperini", usuarios });
+  res.render("usuarios/main", { usuarios });
 });
+
+/* ----------------- Iteraciones y Listas 2---------------------- */
+
+/* app.get("/listado", (req, res) => {
+  const usuarios = ["Ana", "Romina", "Enrique"];
+  res.render("main", { usuarios });
+}); */
 
 app.listen(3000, () => {
   console.log("Servidor corriendo en http://localhost:3000");
