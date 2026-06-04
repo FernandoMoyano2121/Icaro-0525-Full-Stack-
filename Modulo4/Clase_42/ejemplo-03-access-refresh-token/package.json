@@ -1,0 +1,14 @@
+{
+  "name": "ejemplo-03-access-refresh-token",
+  "version": "1.0.0",
+  "description": "Clase 42 - Ejemplo 3: Access Token + Refresh Token",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

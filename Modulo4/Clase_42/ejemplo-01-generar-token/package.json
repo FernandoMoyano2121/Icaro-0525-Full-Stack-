@@ -1,0 +1,14 @@
+{
+  "name": "ejemplo-01-generar-token",
+  "version": "1.0.0",
+  "description": "Clase 42 - Ejemplo 1: Generar un JWT al hacer login",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

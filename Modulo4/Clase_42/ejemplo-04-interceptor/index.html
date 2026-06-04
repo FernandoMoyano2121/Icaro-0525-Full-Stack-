@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clase 42 — Interceptor de Axios</title>
+
+    <!-- Axios desde CDN: la librería que usamos para hacer fetch con interceptores -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+      body {
+        font-family: monospace;
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 0 20px;
+        background: #1e1e2e;
+        color: #cdd6f4;
+      }
+
+      h1 {
+        color: #cba6f7;
+      }
+      h2 {
+        color: #89b4fa;
+        border-bottom: 1px solid #313244;
+        padding-bottom: 6px;
+      }
+
+      .seccion {
+        background: #313244;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 20px;
+      }
+
+      input {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #45475a;
+        background: #1e1e2e;
+        color: #cdd6f4;
+        margin-right: 8px;
+        width: 160px;
+      }
+
+      button {
+        padding: 8px 16px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        font-family: monospace;
+        font-weight: bold;
+        margin: 4px;
+      }
+
+      .btn-verde {
+        background: #a6e3a1;
+        color: #1e1e2e;
+      }
+      .btn-rojo {
+        background: #f38ba8;
+        color: #1e1e2e;
+      }
+      .btn-azul {
+        background: #89b4fa;
+        color: #1e1e2e;
+      }
+
+      #resultado {
+        background: #181825;
+        border-radius: 6px;
+        padding: 12px;
+        margin-top: 12px;
+        min-height: 60px;
+        white-space: pre-wrap;
+        font-size: 13px;
+      }
+
+      .ok {
+        color: #a6e3a1;
+      }
+      .error {
+        color: #f38ba8;
+      }
+      .info {
+        color: #89b4fa;
+      }
+      .warn {
+        color: #f9e2af;
+      }
+
+      #log {
+        background: #181825;
+        border-radius: 6px;
+        padding: 12px;
+        height: 220px;
+        overflow-y: auto;
+        font-size: 12px;
+      }
+
+      .timer {
+        font-size: 13px;
+        color: #f9e2af;
+        margin-top: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Clase 42 — Interceptor de Axios 🔄</h1>
+
+    <p>
+      Abrí la <strong>consola del navegador (F12)</strong> para ver los logs
+      detallados del interceptor junto con los de esta pantalla.
+    </p>
+
+    <!-- ============================================================
+       SECCIÓN 1: LOGIN
+  ============================================================= -->
+    <div class="seccion">
+      <h2>1. Login</h2>
+      <input
+        id="inputUsuario"
+        type="text"
+        placeholder="usuario"
+        value="fernando"
+      />
+      <input
+        id="inputPassword"
+        type="password"
+        placeholder="password"
+        value="1234"
+      />
+      <button class="btn-verde" onclick="hacerLogin()">Login</button>
+      <button class="btn-rojo" onclick="hacerLogout()">Logout</button>
+    </div>
+
+    <!-- ============================================================
+       SECCIÓN 2: PEDIR DATOS PROTEGIDOS
+  ============================================================= -->
+    <div class="seccion">
+      <h2>2. Ruta protegida</h2>
+      <button class="btn-azul" onclick="pedirDatos()">
+        Pedir datos protegidos
+      </button>
+      <p class="timer" id="timerTexto">⏱ Access Token: —</p>
+      <div id="resultado">Esperando acción...</div>
+    </div>
+
+    <!-- ============================================================
+       SECCIÓN 3: LOG DEL INTERCEPTOR
+  ============================================================= -->
+    <div class="seccion">
+      <h2>3. Log del interceptor (en tiempo real)</h2>
+      <button
+        class="btn-rojo"
+        onclick="limpiarLog()"
+        style="font-size: 11px; padding: 4px 10px"
+      >
+        Limpiar log
+      </button>
+      <div id="log"></div>
+    </div>
+
+    <script>
+      // ===========================================================
+      // VARIABLES GLOBALES: guardamos los tokens en memoria
+      // (en una app real el refreshToken iría en cookie httpOnly)
+      // ===========================================================
+      let accessToken = null;
+      let refreshToken = null;
+      let timerInterval = null;
+
+      // ===========================================================
+      // FUNCIÓN: log visual en pantalla
+      // ===========================================================
+      function agregarLog(mensaje, tipo = "info") {
+        const div = document.getElementById("log");
+        const linea = document.createElement("div");
+        linea.className = tipo;
+        linea.textContent = `[${new Date().toLocaleTimeString()}] ${mensaje}`;
+        div.appendChild(linea);
+        div.scrollTop = div.scrollHeight;
+        // También lo imprimimos en consola del navegador
+        console.log(
+          `%c${linea.textContent}`,
+          tipo === "error"
+            ? "color:salmon"
+            : tipo === "ok"
+              ? "color:lightgreen"
+              : tipo === "warn"
+                ? "color:gold"
+                : "color:lightblue",
+        );
+      }
+
+      function limpiarLog() {
+        document.getElementById("log").innerHTML = "";
+      }
+
+      function mostrarResultado(texto, tipo = "ok") {
+        const div = document.getElementById("resultado");
+        div.className = tipo;
+        div.textContent =
+          typeof texto === "object" ? JSON.stringify(texto, null, 2) : texto;
+      }
+
+      // ===========================================================
+      // TIMER: muestra cuántos segundos quedan del Access Token
+      // ===========================================================
+      function iniciarTimer() {
+        clearInterval(timerInterval);
+        let segundos = 15;
+        document.getElementById("timerTexto").textContent =
+          `⏱ Access Token expira en: ${segundos}s`;
+        timerInterval = setInterval(() => {
+          segundos--;
+          if (segundos <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById("timerTexto").textContent =
+              "⏱ Access Token: EXPIRADO ⚠️";
+          } else {
+            document.getElementById("timerTexto").textContent =
+              `⏱ Access Token expira en: ${segundos}s`;
+          }
+        }, 1000);
+      }
+
+      // ===========================================================
+      // CONFIGURACIÓN DEL INTERCEPTOR DE AXIOS
+      // -----------------------------------------------------------
+      // Esto es lo más importante del ejemplo.
+      //
+      // Creamos una instancia personalizada de Axios (api).
+      // Le agregamos DOS interceptores:
+      //
+      //   1. Interceptor de REQUEST (antes de que salga la petición)
+      //      → Agrega automáticamente el token en el header
+      //
+      //   2. Interceptor de RESPONSE (cuando llega la respuesta)
+      //      → Si hay un error 401 (token expirado):
+      //          a) Pide un nuevo accessToken a /refresh
+      //          b) Actualiza el token en memoria
+      //          c) Reintenta la petición original
+      //      → Si el error NO es 401, lo deja pasar normalmente
+      // ===========================================================
+
+      // Creamos una instancia de Axios apuntando a nuestro backend
+      const api = axios.create({
+        baseURL: "http://localhost:3000",
+      });
+
+      // -----------------------------------------------------------
+      // INTERCEPTOR 1: de REQUEST
+      // Se ejecuta ANTES de que cada petición salga al servidor.
+      // Su tarea: agregar el Authorization header automáticamente.
+      // -----------------------------------------------------------
+      api.interceptors.request.use(
+        (config) => {
+          // Si tenemos un accessToken guardado, lo agregamos al header
+          if (accessToken) {
+            config.headers["Authorization"] = `Bearer ${accessToken}`;
+            agregarLog(
+              "📤 Interceptor REQUEST: agregando token al header",
+              "info",
+            );
+          }
+          // Devolvemos la config modificada para que la petición continúe
+          return config;
+        },
+        (error) => {
+          // Si hay un error antes de enviar la petición, lo propagamos
+          return Promise.reject(error);
+        },
+      );
+
+      // -----------------------------------------------------------
+      // INTERCEPTOR 2: de RESPONSE
+      // Se ejecuta cuando llega la respuesta del servidor.
+      // Su tarea: detectar 401 y renovar el token automáticamente.
+      // -----------------------------------------------------------
+      api.interceptors.response.use(
+        // Si la respuesta es exitosa (2xx), la dejamos pasar sin tocar
+        (response) => {
+          agregarLog("✅ Interceptor RESPONSE: respuesta exitosa", "ok");
+          return response;
+        },
+
+        // Si la respuesta es un error:
+        async (error) => {
+          const statusCode = error.response?.status;
+          const peticionOriginal = error.config; // guarda toda la info de la petición que falló
+
+          // ¿Es un error 401 (token expirado)?
+          if (statusCode === 401) {
+            agregarLog(
+              "⚠️  Interceptor RESPONSE: recibí un 401 — el access token expiró",
+              "warn",
+            );
+            agregarLog(
+              "🔄  Interceptor: intentando renovar el token con /refresh...",
+              "warn",
+            );
+
+            try {
+              // Pedimos un nuevo access token usando el refresh token
+              const respuestaRefresh = await axios.post(
+                "http://localhost:3000/refresh",
+                {
+                  refreshToken: refreshToken,
+                },
+              );
+
+              // Actualizamos el access token en memoria
+              accessToken = respuestaRefresh.data.accessToken;
+              agregarLog("🆕  Interceptor: nuevo access token obtenido", "ok");
+
+              // Reiniciamos el timer visual
+              iniciarTimer();
+
+              // Actualizamos el header de la petición original con el nuevo token
+              peticionOriginal.headers["Authorization"] =
+                `Bearer ${accessToken}`;
+
+              agregarLog(
+                "🔁  Interceptor: reintentando la petición original...",
+                "info",
+              );
+
+              // Reintentamos la petición original que había fallado
+              // Usamos axios directamente (no "api") para evitar bucle infinito
+              return axios(peticionOriginal);
+            } catch (errorRefresh) {
+              // Si el refresh también falla, la sesión expiró por completo
+              agregarLog(
+                "❌  Interceptor: refresh token inválido — cerrando sesión",
+                "error",
+              );
+              accessToken = null;
+              refreshToken = null;
+              mostrarResultado(
+                "Sesión expirada. Por favor hacé login de nuevo.",
+                "error",
+              );
+              return Promise.reject(errorRefresh);
+            }
+          }
+
+          // Si el error NO es 401, lo propagamos normalmente
+          agregarLog(`❌  Interceptor RESPONSE: error ${statusCode}`, "error");
+          return Promise.reject(error);
+        },
+      );
+
+      // ===========================================================
+      // FUNCIÓN: hacerLogin
+      // ===========================================================
+      async function hacerLogin() {
+        const usuario = document.getElementById("inputUsuario").value;
+        const password = document.getElementById("inputPassword").value;
+
+        agregarLog(`🔐 Iniciando login con usuario: "${usuario}"`, "info");
+
+        try {
+          // Para el login NO usamos "api" sino axios directo
+          // (todavía no tenemos token para agregar al header)
+          const respuesta = await axios.post("http://localhost:3000/login", {
+            usuario,
+            password,
+          });
+
+          // Guardamos los tokens en memoria
+          accessToken = respuesta.data.accessToken;
+          refreshToken = respuesta.data.refreshToken;
+
+          agregarLog("✅ Login exitoso. Tokens guardados en memoria.", "ok");
+          iniciarTimer();
+          mostrarResultado(
+            `Login exitoso ✅\n\nEl access token dura 15 segundos.\nEsperalo expirar y luego apretá "Pedir datos protegidos".\nEl interceptor lo renovará solo.`,
+          );
+        } catch (error) {
+          agregarLog("❌ Login fallido: credenciales inválidas", "error");
+          mostrarResultado("Login fallido. Credenciales inválidas.", "error");
+        }
+      }
+
+      // ===========================================================
+      // FUNCIÓN: pedirDatos
+      // Esta función NO maneja la renovación del token.
+      // Eso lo hace el interceptor automáticamente.
+      // ===========================================================
+      async function pedirDatos() {
+        agregarLog("📡 Pidiendo datos a GET /datos...", "info");
+
+        try {
+          // El interceptor de REQUEST agrega el token automáticamente.
+          // Si el token expiró, el interceptor de RESPONSE lo renueva
+          // y reintenta esta misma petición. Todo transparente.
+          const respuesta = await api.get("/datos");
+
+          mostrarResultado(respuesta.data);
+        } catch (error) {
+          mostrarResultado("Error al pedir datos. Revisá el log.", "error");
+        }
+      }
+
+      // ===========================================================
+      // FUNCIÓN: hacerLogout
+      // ===========================================================
+      async function hacerLogout() {
+        if (!refreshToken) {
+          mostrarResultado("No hay sesión activa.", "error");
+          return;
+        }
+
+        try {
+          await axios.post("http://localhost:3000/logout", { refreshToken });
+          accessToken = null;
+          refreshToken = null;
+          clearInterval(timerInterval);
+          document.getElementById("timerTexto").textContent =
+            "⏱ Access Token: —";
+          agregarLog("🔒 Logout realizado. Tokens eliminados.", "ok");
+          mostrarResultado("Logout exitoso. Tokens eliminados de memoria.");
+        } catch (error) {
+          agregarLog("❌ Error al hacer logout", "error");
+        }
+      }
+    </script>
+  </body>
+</html>
