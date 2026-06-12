@@ -1,0 +1,26 @@
+{
+  "name": "clase-45-sequelize",
+  "version": "1.0.0",
+  "description": "ORM con Sequelize — Clase 45",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "01": "node src/examples/01-test-conexion.js",
+    "02": "node src/examples/02-sync-modelos.js",
+    "03": "node src/examples/03-crud-categorias.js",
+    "04": "node src/examples/04-crud-productos.js",
+    "05": "node src/examples/05-asociaciones.js",
+    "06": "node src/examples/06-migraciones.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "mysql2": "^3.6.0",
+    "sequelize": "^6.35.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}

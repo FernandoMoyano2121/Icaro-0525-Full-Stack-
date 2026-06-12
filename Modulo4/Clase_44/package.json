@@ -6,7 +6,11 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "01": "node src/examples/01-test-conexion.js",
+    "02": "node src/examples/02-crud-categorias.js",
+    "03": "node src/examples/03-relacion-nm.js",
+    "04": "node src/examples/04-transacciones.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
