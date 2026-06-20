@@ -1,0 +1,18 @@
+{
+  "name": "clase-46-nodemailer",
+  "version": "1.0.0",
+  "description": "Clase 46 - Envío de correos desde Node.js con Nodemailer",
+  "type": "module",
+  "scripts": {
+    "01": "node ejemplos/01-correo-simple/index.js",
+    "02": "node ejemplos/02-correo-html/index.js",
+    "03": "node ejemplos/03-correo-adjuntos/index.js",
+    "04": "node ejemplos/04-correo-plantilla/index.js",
+    "05": "node ejemplos/05-express-nodemailer/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "nodemailer": "^8.0.1"
+  }
+}

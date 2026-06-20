@@ -1,0 +1,21 @@
+FACTURA DE COMPRA — TIENDA ICARO
+================================
+Número de factura : FAC-2024-00123
+Fecha             : 15/03/2024
+Cliente           : Juan Pérez
+Email             : juan@ejemplo.com
+
+DETALLE DE COMPRA:
+------------------
+Producto                          Cant.   Precio Unit.   Subtotal
+Notebook Lenovo IdeaPad 3           1      $749.999      $749.999
+Mouse Gamer Logitech G502           1       $59.999       $59.999
+Cable USB-C 2 metros                2        $2.999        $5.998
+------------------------------------------------------------------
+                                              TOTAL:    $815.996
+
+Método de pago: Tarjeta de crédito (terminada en 1234)
+Estado: PAGADO ✓
+
+Gracias por tu compra en Tienda Icaro!
+Para consultas: soporte@tienda-icaro.com

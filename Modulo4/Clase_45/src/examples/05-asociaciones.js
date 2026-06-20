@@ -102,7 +102,13 @@ async function main() {
     // si no existe, sin tocar las tablas categorias y productos.
     // Es necesario porque belongsToMany genera una tercera tabla que
     // el 02-sync-modelos.js no conocía (las asociaciones se declaran acá).
-    await sequelize.sync();
+
+    //Si las tablas ya estan creadas será necesario colocarle a sync la opcion
+    //{ force:true } porqué El modelo Categoria tiene unique: true en el campo nombre.
+    //Cuando corrés el script por segunda vez, insertarDatos() intenta hacer
+    //Categoria.create({ nombre: "Electrónica", ... }) pero "Electrónica"
+    // ya existe → Sequelize lanza un UniqueConstraintError con el mensaje "Validation error".
+    await sequelize.sync({ force: true });
 
     await insertarDatos();
     await productosConCategorias();
