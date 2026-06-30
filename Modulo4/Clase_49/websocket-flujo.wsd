@@ -1,0 +1,142 @@
+@startuml WebSocket_Comunicacion
+
+!theme plain
+skinparam backgroundColor #0F1117
+skinparam sequenceMessageAlign center
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 13
+
+' ── Colores de participantes ──────────────────────────────────
+skinparam participant {
+  BackgroundColor #1E2235
+  BorderColor     #4A90E2
+  FontColor       #E8EAF0
+  FontStyle       bold
+  Padding         12
+}
+
+' ── Flechas y mensajes ────────────────────────────────────────
+skinparam sequence {
+  ArrowColor            #4A90E2
+  ArrowFontColor        #A0B4D6
+  ArrowFontSize         11
+  ArrowThickness        2
+
+  LifeLineBorderColor   #2E3455
+  LifeLineBackgroundColor #161A2B
+
+  DividerBackgroundColor  #1A1F35
+  DividerBorderColor      #4A90E2
+  DividerFontColor        #7EB3FF
+  DividerFontStyle        bold
+
+  GroupBackgroundColor  #1A2340
+  GroupBorderColor      #4A90E2
+  GroupFontColor        #7EB3FF
+  GroupHeaderFontColor  #7EB3FF
+
+  NoteBackgroundColor   #1E2A45
+  NoteBorderColor       #4A90E2
+  NoteFontColor         #A8C4E8
+  NoteFontSize          11
+}
+
+skinparam shadowing false
+
+' ══════════════════════════════════════════════════════════════
+title <color:#7EB3FF><size:18>Comunicación WebSocket — Flujo Completo</size></color>
+' ══════════════════════════════════════════════════════════════
+
+actor       "<color:#E8EAF0>Cliente A\n(navegador)</color>"  as CA #1E2235
+participant "<color:#E8EAF0>   Servidor  \n  (Node.js)  </color>" as SV #0D47A1
+actor       "<color:#E8EAF0>Cliente B\n(navegador)</color>"  as CB #1E2235
+
+' ──────────────────────────────────────────────────────────────
+== <color:#7EB3FF>① HANDSHAKE — Upgrade HTTP → WebSocket</color> ==
+' ──────────────────────────────────────────────────────────────
+
+CA -[#4A90E2]-> SV : <color:#A8D8FF>GET /socket.io/...</color>\n<color:#6B8CAE>Upgrade: websocket\nConnection: Upgrade</color>
+note right of SV
+  <color:#A8D8FF>El cliente "negocia" el cambio</color>
+  <color:#6B8CAE>de protocolo HTTP → WS</color>
+  <color:#6B8CAE>usando una petición HTTP estándar</color>
+end note
+
+SV -[#27AE60]-> CA : <color:#6BFFB8>HTTP 101 Switching Protocols</color>\n<color:#6B8CAE>Upgrade: websocket ✓</color>
+
+' Misma negociación para Cliente B
+CB -[#4A90E2]-> SV : <color:#A8D8FF>GET /socket.io/...</color>\n<color:#6B8CAE>Upgrade: websocket\nConnection: Upgrade</color>
+SV -[#27AE60]-> CB : <color:#6BFFB8>HTTP 101 Switching Protocols</color>
+
+' ──────────────────────────────────────────────────────────────
+== <color:#7EB3FF>② CONEXIÓN ESTABLECIDA — Canal persistente abierto</color> ==
+' ──────────────────────────────────────────────────────────────
+
+note over CA, CB
+  <color:#6BFFB8>✅  La conexión TCP queda ABIERTA para ambos clientes.</color>
+  <color:#A8C4E8>A partir de aquí es full-duplex: cualquiera puede enviar</color>
+  <color:#A8C4E8>mensajes en cualquier momento sin hacer nuevas peticiones HTTP.</color>
+end note
+
+SV -[#27AE60]-> CA : <color:#6BFFB8>evento: "connect"</color>\n<color:#6B8CAE>socket.id = "aB3kX..."</color>
+SV -[#27AE60]-> CB : <color:#6BFFB8>evento: "connect"</color>\n<color:#6B8CAE>socket.id = "mZ9pQ..."</color>
+
+' ──────────────────────────────────────────────────────────────
+== <color:#7EB3FF>③ INTERCAMBIO DE DATOS — Envío y Broadcast</color> ==
+' ──────────────────────────────────────────────────────────────
+
+CA -[#F39C12]-> SV : <color:#FFD580>emit("chat message", "Hola a todos!")</color>
+note left of CA
+  <color:#A8C4E8>socket.emit()</color>
+  <color:#6B8CAE>El cliente envía</color>
+  <color:#6B8CAE>un evento nombrado</color>
+  <color:#6B8CAE>con un payload</color>
+end note
+
+SV -[#E74C3C]-> CA : <color:#FF8A80>emit("chat message", "Hola a todos!")</color>
+SV -[#E74C3C]-> CB : <color:#FF8A80>emit("chat message", "Hola a todos!")</color>
+
+note over SV
+  <color:#FF8A80>📡  io.emit() = BROADCAST</color>
+  <color:#A8C4E8>El servidor reenvía el mensaje</color>
+  <color:#A8C4E8>a TODOS los clientes conectados</color>
+  <color:#A8C4E8>al mismo tiempo</color>
+end note
+
+' ──────────────────────────────────────────────────────────────
+== <color:#7EB3FF>④ PING / PONG — Mantener la conexión viva</color> ==
+' ──────────────────────────────────────────────────────────────
+
+SV -[#9B59B6]-> CA : <color:#CE93D8>ping (automático cada ~25s)</color>
+CA -[#9B59B6]-> SV : <color:#CE93D8>pong ✓</color>
+note right of SV
+  <color:#A8C4E8>socket.io gestiona esto</color>
+  <color:#6B8CAE>automáticamente para detectar</color>
+  <color:#6B8CAE>clientes inactivos o caídos</color>
+end note
+
+' ──────────────────────────────────────────────────────────────
+== <color:#7EB3FF>⑤ CIERRE — Desconexión</color> ==
+' ──────────────────────────────────────────────────────────────
+
+CA -[#95A5A6]-> SV : <color:#BDC3C7>disconnect()</color>
+note left of CA
+  <color:#A8C4E8>Frame de cierre WS</color>
+  <color:#6B8CAE>Puede iniciarlo el cliente</color>
+  <color:#6B8CAE>o el servidor</color>
+end note
+
+SV -[#E74C3C]-> SV : <color:#FF8A80>evento: "disconnect"\nsocket.id "aB3kX..." eliminado</color>
+
+' ──────────────────────────────────────────────────────────────
+legend bottom
+  |= Tipo de flecha |= Significado |
+  |<color:#4A90E2>──────</color>| Petición HTTP (handshake inicial) |
+  |<color:#27AE60>──────</color>| Respuesta del servidor / Conexión OK |
+  |<color:#F39C12>──────</color>| Mensaje del cliente al servidor (emit) |
+  |<color:#E74C3C>──────</color>| Broadcast del servidor a clientes (io.emit) |
+  |<color:#9B59B6>──────</color>| Ping/Pong (heartbeat automático) |
+  |<color:#95A5A6>──────</color>| Desconexión |
+endlegend
+
+@enduml

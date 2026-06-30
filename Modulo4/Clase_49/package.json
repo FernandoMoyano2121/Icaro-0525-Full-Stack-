@@ -1,0 +1,17 @@
+{
+  "name": "clase-49-websocket",
+  "version": "1.0.0",
+  "description": "Clase 49 — WebSocket con Socket.IO. Un solo package.json para todos los ejemplos.",
+  "type": "module",
+  "scripts": {
+    "01": "node ejemplo-01-servidor-basico/server.js",
+    "02-server": "node ejemplo-02-cliente-node/server.js",
+    "02-client": "node ejemplo-02-cliente-node/client.js",
+    "03": "node ejemplo-03-chat-usuarios/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2"
+  }
+}
