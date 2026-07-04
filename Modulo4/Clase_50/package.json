@@ -1,0 +1,19 @@
+{
+  "name": "clase-50-documentacion",
+  "version": "1.0.0",
+  "description": "Clase 50 - Documentación: README, Swagger/OpenAPI, Winston y Morgan",
+  "type": "module",
+  "scripts": {
+    "02": "node ejemplo-02-swagger-basico/index.js",
+    "03": "node ejemplo-03-winston/index.js",
+    "04": "node ejemplo-04-integracion-completa/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "winston": "^3.11.0"
+  }
+}

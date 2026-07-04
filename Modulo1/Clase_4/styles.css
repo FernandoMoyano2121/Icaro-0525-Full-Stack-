@@ -48,7 +48,40 @@
   margin: 1rem;
   text-align: center;
 }
-/* *********** flex-grow *********/
+
+/****************************** align self ***********************/
+
+/*
+Esta propiedad te permite cambiar la alineación de un solo elemento
+en el eje secundario (por defecto, el eje vertical), ignorando la regla general
+de align-items que tenga el contenedor padre.
+
+Para qué sirve: Para romper la regla de alineación del grupo y posicionar 
+un elemento de forma independiente (arriba, al centro, abajo o estirado).
+
+Valor por defecto: auto
+
+Nota: El valor auto significa que hereda el valor que tenga la
+propiedad align-items de su contenedor padre. 
+Si el padre no tiene un align-items definido, se comporta como stretch (estirar).
+*/
+
+/* ***************************** flex-grow ***********************/
+
+/*
+Determina la capacidad de un elemento para crecer y ocupar el espacio vacío sobrante
+del contenedor si es que lo hay.
+
+Para qué sirve: Si hay espacio libre en el contenedor, los elementos con un valor superior
+a 0 se estirarán para llenarlo.
+
+Si todos tienen flex-grow: 1, se repartirán el espacio extra
+en partes iguales.
+
+Si uno tiene flex-grow: 2, absorberá el doble de espacio extra que los demás.
+
+Valor por defecto: 0 (lo que significa que el elemento no crecerá aunque sobre espacio;
+mantendrá su tamaño original). */
 
 /* .hijo1 {
   flex-grow: 1;
@@ -57,14 +90,29 @@
   flex-grow: 1;
 } */
 
-.hijo1 {
-  flex-shrink: 0;
-}
-.hijo2 {
-  flex-shrink: 1;
-}
-.hijo3 {
-  flex-shrink: 0;
-}
+/* ******************************** flex-shrink ***********************/
 
-/* *********** flex-shrink *********/
+/*
+Determina la capacidad de un elemento para encogerse cuando el tamaño
+del contenedor es demasiado pequeño para albergar a todos los hijos con sus tamaños originales.
+
+Para qué sirve: Controla qué elementos se encogen primero o más rápido para
+evitar que el contenido se desborde del contenedor. 
+
+Un valor de 0 le dice al elemento: "no te encojas pase lo que pase".
+
+Valor por defecto: 1 (lo que significa que el elemento sí se encogerá proporcionalmente 
+junto a los demás para no desbordar el contenedor). 
+*/
+
+/* .hijo1 {
+  flex-shrink: 0;
+} */
+
+/* .hijo2 {
+  flex-shrink: 1;
+} */
+
+/* .hijo3 {
+  flex-shrink: 0;
+} */

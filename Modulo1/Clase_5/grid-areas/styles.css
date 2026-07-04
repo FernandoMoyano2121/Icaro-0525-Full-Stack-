@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* Dos columnas: una fija y otra flexible */
+  grid-template-rows: 80px auto 60px; /* Tres filas con sus respectivas alturas */
+  gap: 10px;
+  height: 100vh;
+
+  /* Aquí definimos el mapa del diseño */
+  grid-template-areas:
+    "header header" /* Fila 1: El header ocupa las dos columnas */
+    "sidebar content" /* Fila 2: Sidebar a la izquierda, contenido a la derecha */
+    "footer footer"; /* Fila 3: El footer ocupa las dos columnas */
+}
+
+/* Asignamos cada elemento a su área correspondiente */
+.header {
+  grid-area: header;
+  background-color: #ff9f43;
+}
+.sidebar {
+  grid-area: sidebar;
+  background-color: #0abde3;
+}
+.content {
+  grid-area: content;
+  background-color: #10ac84;
+}
+.footer {
+  grid-area: footer;
+  background-color: #ee5253;
+}
+
+/* Estilo estético básico para los bloques */
+.container > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+/*************** GRID COLUMN ******************** */
+
+.grid-container {
+  display: grid;
+  /* Creamos una malla de 3 columnas iguales y 3 filas automáticas */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 100px);
+  gap: 10px;
+}
+
+.caja-ancha {
+  background-color: #5f27cd;
+  /* Empieza en la línea de columna 1 y termina en la 4 (ocupa las 3 columnas) */
+  grid-column: 1 / 4;
+}
+
+.caja-alta {
+  background-color: #ff6b6b;
+  /* Empieza en la columna 1 */
+  grid-column: 1;
+  /* Empieza en la fila 2 y termina en la línea de fila 4 (ocupa 2 filas) */
+  grid-row: 2 / 4;
+}
+
+.normal {
+  background-color: #48dbfb;
+}
+
+/* Estilo estético básico */
+.grid-container > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: sans-serif;
+  font-weight: bold;
+}

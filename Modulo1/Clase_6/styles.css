@@ -1,4 +1,4 @@
-/* HOVER  */
+/********************* HOVER  *******************/
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
@@ -19,11 +19,14 @@ body {
   background-color: rgb(250, 202, 143);
   /* color: aliceblue; */
 }
+/********************* ACTIVE  *******************/
 
 .button:active {
   background-color: rgb(143, 83, 6);
   color: aliceblue;
 }
+
+/*********************** CARD CON ESTILOS *****************/
 
 .article {
   width: 200px;
@@ -47,7 +50,7 @@ body {
   height: 100px;
 }
 
-/* FOCUS */
+/******************************* FOCUS *************************/
 input {
   border: 2px solid rgb(208, 207, 207);
   outline: none;
@@ -57,7 +60,7 @@ input:focus {
   border: 2px solid #a86d21;
 }
 
-/* VALID E INVALID */
+/************************* VALID E INVALID *******************/
 
 /* input:invalid {
   outline: none;
@@ -66,8 +69,7 @@ input:focus {
 
 input:valid {
   border-color: rgb(6, 178, 58);
-}
- */
+} */
 
 /****************** PSEUDOCLASES DE POSICIÓN ****************/
 
@@ -121,6 +123,7 @@ h1::after {
   transition: background-color 1.5s ease-in;
 }
  */
+
 .button1 {
   border: none;
   width: 100px;
@@ -135,9 +138,9 @@ h1::after {
 .button1:hover {
   background-color: antiquewhite;
   color: black;
-  /*   transform: scale(2.5);
-  transform: translate(50px, 100px); */
-  transform: rotate(-40deg);
+  /* transform: scale(2.5); */
+  /* transform: translate(50px, 100px); */
+  /* transform: rotate(-40deg); */
 }
 
 /**************************** ANIMACIONES *****************************/

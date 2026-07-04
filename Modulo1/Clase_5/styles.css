@@ -9,34 +9,151 @@
   background-color: rgb(161, 166, 171);
   padding: 20px;
   border: 1px solid gray;
+
+  /* 🗣️ Valores posibles para "gap" (separación entre celdas, filas Y columnas a la vez):
+     - 1rem                  → mismo espacio entre filas y columnas (lo que está activo)
+     - 20px                  → separación fija en píxeles
+     - 1rem 2rem             → shorthand: primer valor = row-gap, segundo valor = column-gap
+     - row-gap: 1rem;        → separación SOLO entre filas (propiedad separada)
+     - column-gap: 2rem;     → separación SOLO entre columnas (propiedad separada) */
   gap: 1rem;
 
-  /* DISPLAY */
+  /************************ DISPLAY ************************/
+
+  /* 🗣️ Valores posibles para "display" relacionados a Grid/Flex:
+     - grid                  → activa Grid Layout (el que estamos usando acá)
+     - inline-grid           → como grid, pero el contenedor se comporta como elemento inline
+     - flex                  → activa Flexbox (layout unidimensional)
+     - inline-flex           → como flex, pero el contenedor se comporta como elemento inline
+     - block / inline / none → valores "normales" de display, sin layout especial */
   display: grid;
 
-  /* COLUMNS */
+  /********************* COLUMNS ****************************/
+
+  /* 🗣️ Valores posibles para "grid-template-columns":
+     - 300px 200px 300px             → tamaños fijos en píxeles por columna (lo que está activo)
+     - 1fr 2fr 1fr                   → fracciones del espacio disponible (proporcional)
+     - repeat(3, 150px)              → repite 3 columnas de 150px cada una
+     - repeat(3, 1fr)                → repite 3 columnas iguales, usando fracciones
+     - auto auto auto                → cada columna se ajusta al contenido
+     - minmax(100px, 1fr)            → columna con tamaño mínimo y máximo flexible
+     - repeat(auto-fit, minmax(150px, 1fr)) → columnas responsivas automáticas */
 
   grid-template-columns: 300px 200px 300px;
-  /*   grid-template-columns: 1fr 2fr 1fr;
- */ /*  grid-template-columns: repeat(3, 150px);
- */ /*  grid-template-columns: repeat(3, 1fr); */
+  /*  grid-template-columns: 1fr 2fr 1fr;*/
+  /*  grid-template-columns: repeat(3, 150px);*/
+  /*  grid-template-columns: repeat(3, 1fr); */
 
-  /* ROW */
+  /************************* ROW ****************************/
+
+  /* 🗣️ Valores posibles para "grid-template-rows":
+     - 200px 200px            → tamaños fijos en píxeles por fila (lo que está activo)
+     - repeat(2, 1fr)         → 2 filas iguales, usando fracciones del espacio disponible
+     - auto auto              → cada fila se ajusta a la altura de su contenido
+     - minmax(100px, auto)    → fila con altura mínima, pero puede crecer según contenido
+     - 1fr 2fr                → filas con proporciones distintas entre sí */
 
   grid-template-rows: 200px 200px;
   /* grid-template-rows: 200px 200px; */
-  /*  grid-template-rows: repeat(2, 1fr); */
+  /* grid-template-rows: repeat(2, 1fr); */
 
-  /***** centrado eje horizontal dentro de la celda ****/
+  /********** centrado EJE HORIZONTAL dentro de la celda *******/
+
+  /* 🗣️ Valores posibles para "justify-items" (alinea el contenido DENTRO de cada celda, eje horizontal):
+     - start       → pega el contenido al borde izquierdo de la celda
+     - center      → centra el contenido horizontalmente
+     - end         → pega el contenido al borde derecho de la celda
+     - stretch     → el contenido ocupa todo el ancho de la celda (valor por defecto) */
+
   /* justify-items: center; */
   /* justify-items: end; */
 
-  /***** centrado eje Vertical dentro de la celda ****/
+  /************ centrado EJE VERTICAL dentro de la celda *********/
+
+  /* 🗣️ Valores posibles para "align-items" (alinea el contenido DENTRO de cada celda, eje vertical):
+     - start / flex-start  → pega el contenido arriba de la celda
+     - center                → centra el contenido verticalmente
+     - end / flex-end         → pega el contenido abajo de la celda
+     - stretch                  → el contenido ocupa todo el alto de la celda (valor por defecto) */
+
   /* align-items: center; */
   /* align-items: flex-end; */
 
+  /* 🗣️ Valores posibles para "JUSTIFY-CONTENT" (alinea las COLUMNAS completas dentro del contenedor, eje horizontal):
+
+
+     - start / center / end
+     - space-between  → distribuye el espacio sobrante entre columnas
+     - space-around     → distribuye el espacio sobrante alrededor de cada columna
+     - space-evenly       → distribuye el espacio sobrante de forma pareja entre y alrededor de las columnas */
+
   /*   justify-content: center;*/
+
+  /* 🗣️ Valores posibles para "ALIGN-CONTENT" (alinea las FILAS completas dentro del contenedor, eje vertical):
+
+
+     - start / center / end
+     - space-between  → distribuye el espacio sobrante entre filas
+     - space-around     → distribuye el espacio sobrante alrededor de cada fila
+     - space-evenly       → distribuye el espacio sobrante de forma pareja entre y alrededor de las filas */
+
   /*   align-content: center;*/
+
+  /************** ÁREAS NOMBRADAS (no se usa en este ejemplo) ************/
+
+  /* 🗣️ "grid-template-areas" define el layout dibujando "mapas" con nombres.
+     Cada string es una fila, cada palabra una celda. Se combina con "grid-area"
+     en cada item para asignarlo a una zona:
+
+     grid-template-areas:
+       "header header header"
+       "sidebar content content"
+       "footer footer footer";
+
+     .header  { grid-area: header; }
+     .sidebar { grid-area: sidebar; }
+     .content { grid-area: content; }
+     .footer  { grid-area: footer; }
+
+     - Las celdas vacías se marcan con un punto: "."
+     - Muy usado para layouts tipo header/sidebar/footer */
+
+  /*********** FILAS/COLUMNAS IMPLÍCITAS (no se usa en este ejemplo) ********/
+
+  /* 🗣️ "grid-auto-rows" / "grid-auto-columns":
+     Definen el tamaño de las filas/columnas que el navegador crea SOLO
+     cuando hay más items de los que entran en el grid ya definido
+     (filas/columnas "implícitas", no declaradas en grid-template-rows/columns).
+     - grid-auto-rows: 150px;     → toda fila implícita mide 150px
+     - grid-auto-rows: minmax(100px, auto); → mínimo 100px, crece según contenido
+     - grid-auto-columns: 1fr;    → toda columna implícita ocupa una fracción */
+
+  /* 🗣️ "grid-auto-flow" controla el ORDEN en que se ubican los items
+     automáticamente dentro del grid:
+     - row (valor por defecto) → llena fila por fila
+     - column                   → llena columna por columna
+     - dense                     → intenta rellenar huecos vacíos que dejan items grandes
+     - row dense / column dense → combina dirección + relleno de huecos */
+
+  /*** ALINEACIÓN INDIVIDUAL POR ITEM (no se usa en este ejemplo) ***/
+
+  /* 🗣️ "justify-self" / "align-self":
+     Igual que justify-items / align-items, pero se aplican en un ITEM
+     puntual (no en el contenedor) y sobreescriben el valor general
+     solo para ese item.
+     - justify-self: center;  → centra ESTE item horizontalmente dentro de su celda
+     - align-self: end;       → pega ESTE item abajo dentro de su celda
+     - se escriben dentro de la clase del item, no en .grid-container */
+
+  /************* SHORTHANDS DE ALINEACIÓN (no se usa en este ejemplo) *******/
+
+  /* 🗣️ "place-items" = shorthand de align-items + justify-items:
+     - place-items: center;          → centra vertical y horizontalmente a la vez
+     - place-items: start end;       → primer valor = align-items, segundo = justify-items */
+
+  /* 🗣️ "place-content" = shorthand de align-content + justify-content:
+     - place-content: center;        → centra las filas y columnas completas dentro del contenedor
+     - place-content: space-between space-around; → primer valor = align-content, segundo = justify-content */
 }
 
 .grid-item {
@@ -51,6 +168,12 @@
 }
 
 .item1 {
+  /* 🗣️ Valores posibles para "grid-column" (en qué columnas ocupa el item):
+     - 1/3                → arranca en la línea 1 y termina en la línea 3 (ocupa 2 columnas, lo que está activo)
+     - 1/-1               → desde la primera columna hasta la última (ocupa todo el ancho)
+     - span 2             → ocupa 2 columnas a partir de donde lo ubique el navegador
+     - 2 / span 2         → arranca en la línea 2 y ocupa 2 columnas
+     - grid-column-start / grid-column-end → mismas líneas, pero declaradas por separado */
   grid-column: 1/3;
   background-color: #ff6b6b;
 }
@@ -59,6 +182,12 @@
 }
 .item3 {
   background-color: #45b7d1;
+  /* 🗣️ Valores posibles para "grid-row" (en qué filas ocupa el item):
+     - 2/4              → arranca en la línea 2 y termina en la línea 4 (ocupa 2 filas, lo que está activo)
+     - 1/-1             → desde la primera fila hasta la última (ocupa todo el alto)
+     - span 2           → ocupa 2 filas a partir de donde lo ubique el navegador
+     - 1 / span 2       → arranca en la línea 1 y ocupa 2 filas
+     - grid-row-start / grid-row-end → mismas líneas, pero declaradas por separado */
   grid-row: 2/4;
 }
 .item4 {
