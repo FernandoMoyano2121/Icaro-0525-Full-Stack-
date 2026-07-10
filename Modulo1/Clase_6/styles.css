@@ -52,7 +52,7 @@ body {
 
 /******************************* FOCUS *************************/
 input {
-  border: 2px solid rgb(208, 207, 207);
+  border: 2px solid #d0cfcf;
   outline: none;
 }
 

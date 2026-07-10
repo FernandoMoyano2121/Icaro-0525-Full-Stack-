@@ -3,8 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-.container {
+* .container {
   display: grid;
   grid-template-columns: 200px 1fr; /* Dos columnas: una fija y otra flexible */
   grid-template-rows: 80px auto 60px; /* Tres filas con sus respectivas alturas */
