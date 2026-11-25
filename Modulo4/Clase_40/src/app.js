@@ -21,11 +21,19 @@ app.post("/", (req, res) => {
   });
 });
 
+// Thunder Client:
+// GET http://localhost:3000/ (sin parámetros ni body)
+// POST http://localhost:3000/ (Body > JSON: {"nombre":"Ana","edad":25,"ciudad":"Lima"})
+
 /* Ejemplo 2______________________________________________ */
-/* app.use(mockAuth);
+app.use(mockAuth);
 app.get("/admin/dashboard", authRoute, (req, res) => {
   res.send("Panel de administrador");
-}); */
+});
+
+// Thunder Client: GET http://localhost:3000/admin/dashboard (sin parámetros ni body)
+// Con mockAuth tal como está, responde 403 porque el usuario simulado tiene rol "user".
+// Para obtener 200, cambiar el rol en mockAuth a "admin".
 
 /* Ejemplo 3______________________________________________ */
 app.get("/productos/:id", (req, res, next) => {
@@ -45,10 +53,18 @@ app.get("/productos/:id", (req, res, next) => {
   }
 });
 
+// Thunder Client: GET http://localhost:3000/productos/123 (id es un parámetro de ruta numérico).
+// Prueba GET http://localhost:3000/productos/abc para recibir 400; con cualquier id numérico,
+// el ejemplo responde 404 porque producto está definido como null.
+
 /* Ejemplo 4______________________________________________ */
-/* app.get("/secret", checkApiKey, (req, res) => {
+app.get("/secret", checkApiKey, (req, res) => {
   res.send("Esto es un secreto");
-}); */
+});
+
+// Thunder Client: GET http://localhost:3000/secret
+// Agregar el header x-api-key con cualquier valor no vacío para recibir 200.
+// Sin ese header, responde 401.
 
 app.use(errorHandler);
 

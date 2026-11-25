@@ -1,32 +1,41 @@
-/* ***************** LET CONST *******************/
+/* *********************** LET CONST ************************/
 
-/* let nombre = "Fernando";
-nombre = "Bruno"; */
+let nombreDeLaPersona = "Fernando";
+nombreDeLaPersona = "Bruno";
 
-/* 
 let nombre1;
-const nombre2;
-*/
+/* const nombre2; */
 
-/* function saludar() {
+/* -------------------------------------------------------- */
+
+function saludar() {
   const nombre = "Fernando";
 }
 
-console.log(nombre); */
+// "nombre" solo existe dentro de las llaves de saludar() (scope de bloque).
+// Si descomentás la línea de abajo da ReferenceError y corta el resto del archivo.
+/* console.log(nombre); */
 
-/* const persona = {
+/* ******************** ARROW FUNCTIONS **********************/
+
+const sumar = (a, b) => a + b;
+console.log(sumar(2, 3)); // 5
+
+/* *************** DESESTRUCTURACIÓN DE OBJETOS **************/
+
+const persona1 = {
   nombre: "Ana",
   edad: 35,
-}; */
+};
 
-/* *************** DESESTRUCTURACIÓN DE OBJETOS ***************/
+console.log(persona1.nombre);
+const nombrePersona1 = persona1.nombre;
+console.log(nombrePersona1);
 
-/* console.log(persona.nombre);
-const nombrePersona = persona.nombre;
-console.log(nombrePersona); */
+const { nombre } = persona1;
+console.log(nombre);
 
-const { nombre: nombrePersona } = persona;
-//const { nombre } = persona;
+const { nombre: nombrePersona } = persona1;
 console.log(nombrePersona);
 
 /* ****************DESESTRUCTURACIÓN DE ARRAYS ***************/
@@ -34,9 +43,12 @@ console.log(nombrePersona);
 const numeros = [1, 2, 3, 4, 5, 6];
 console.log(numeros[1]);
 
+const [numero1] = numeros;
+console.log(numero1);
+
 /* ************** DESESTRUCTURACIÓN POR OMISIÓN **************/
 
-const [primero, tercero] = numeros;
+const [primero, , tercero] = numeros;
 console.log(numeros[0]);
 console.log(primero);
 console.log(tercero);
@@ -58,9 +70,50 @@ console.log(personaActualizada);
 
 /* ************** TEMPLATE STRING/PLANTILLAS LITERALES **************/
 
-let nombre = "Federico";
-console.log("Hola mi nombre es " + nombre);
-console.log(`Hola mi nombre es ${nombre}`);
+let nombreAlumno = "Federico";
+console.log("Hola mi nombre es " + nombreAlumno);
+console.log(`Hola mi nombre es ${nombreAlumno}`);
+
+/* ******************** ENCAPSULAMIENTO **********************/
+
+class CuentaBancaria {
+  constructor(saldoInicial) {
+    let saldo = saldoInicial; // Propiedad privada (con closure)
+
+    this.mostrarSaldo = () => {
+      console.log(`Saldo: ${saldo}`);
+    };
+
+    this.depositar = (monto) => {
+      saldo += monto;
+      console.log(`Nuevo saldo: ${saldo}`);
+    };
+  }
+}
+
+const cuenta = new CuentaBancaria(1000);
+cuenta.mostrarSaldo(); // "Saldo: 1000"
+cuenta.depositar(500); // "Nuevo saldo: 1500"
+
+/* ************************ HERENCIA *************************/
+
+class Animal {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+  hablar() {
+    console.log(`${this.nombre} hace un sonido.`);
+  }
+}
+
+class Perro extends Animal {
+  hablar() {
+    console.log(`${this.nombre} ladra.`);
+  }
+}
+
+const miPerro = new Perro("Rex");
+miPerro.hablar(); // "Rex ladra."
 
 /* ********************* POLIMORFISMO ************************/
 
@@ -70,7 +123,7 @@ class Figura {
   }
 }
 
-class Reactangulo extends Figura {
+class Rectangulo extends Figura {
   constructor(base, altura) {
     super();
     this.base = base;
@@ -93,12 +146,86 @@ class Circulo extends Figura {
   }
 }
 
-/* const rectangulo = new Reactangulo(100, 200);
+/* const rectangulo = new Rectangulo(100, 200);
 console.log(rectangulo.calcularArea());
 
 const circulo = new Circulo(300);
 console.log(circulo.calcularArea()); */
 
 /* Polimorfismo */
-const figuras = [new Reactangulo(100, 200), new Circulo(300)];
+const figuras = [new Rectangulo(100, 200), new Circulo(300)];
 figuras.forEach((figura) => console.log(figura.calcularArea()));
+
+/* ************************* MÓDULOS *************************/
+// import/export solo funcionan si el script se carga como módulo:
+// <script type="module" src="./main.js"></script>
+// Por eso los ejemplos quedan comentados acá.
+// OJO: con type="module" el index.html no funciona abriéndolo con
+// doble clic (file://). Hay que usar un servidor, por ejemplo la
+// extensión Live Server de VS Code.
+
+/* ---------------- 1) EXPORTACIÓN NOMBRADA ----------------
+   Un archivo puede tener TODAS las que quiera.
+
+// archivo.js
+export const sumar = (a, b) => a + b;
+export const restar = (a, b) => a - b;
+
+// IMPORTADO EN OTRO ARCHIVO
+// main.js -> CON llaves y con el MISMO nombre
+import { sumar, restar } from "./archivo.js";
+
+console.log(sumar(2, 3)); // 5
+console.log(restar(5, 2)); // 3
+
+// Si necesitamos otro nombre, se renombra con "as":
+import { sumar as suma } from "./archivo.js";
+console.log(suma(2, 3)); // 5
+*/
+
+/* ---------------- 2) EXPORTACIÓN POR DEFAULT ----------------
+   Solo puede haber UNA por archivo.
+
+// calculadora.js
+const multiplicar = (a, b) => a * b;
+export default multiplicar;
+
+// IMPORTADO EN OTRO ARCHIVO
+// main.js -> SIN llaves y con el nombre que quieras
+import multiplicar from "./calculadora.js";
+import por from "./calculadora.js"; // también funciona
+
+console.log(multiplicar(2, 3)); // 6
+console.log(por(2, 3)); // 6
+*/
+
+/* ---------------- 3) LAS DOS JUNTAS ----------------
+   Muy común en React: una default + varias nombradas.
+
+// calculadora.js
+export default (a, b) => a * b;
+export const PI = 3.14;
+
+// main.js -> primero la default, después las nombradas entre llaves
+import multiplicar, { PI } from "./calculadora.js";
+*/
+
+/*
+  +--------------------------+--------------------+--------------+
+  |                          | Nombrada           | Por default  |
+  +--------------------------+--------------------+--------------+
+  | ¿Cuántas por archivo?    | Todas las que      | Una sola     |
+  |                          | quieras            |              |
+  +--------------------------+--------------------+--------------+
+  | ¿Llaves en el import?    | Sí  { }            | No           |
+  +--------------------------+--------------------+--------------+
+  | ¿Nombre al importar?     | El mismo (o "as")  | Cualquiera   |
+  +--------------------------+--------------------+--------------+
+
+  ¿Cuál conviene?
+  - NOMBRADA: cuando el archivo exporta varias cosas (funciones,
+    constantes, clases). Obliga a usar el nombre real y el editor
+    autocompleta los imports.
+  - DEFAULT: cuando el archivo exporta UNA cosa principal, como
+    pasa con los componentes de React.
+*/

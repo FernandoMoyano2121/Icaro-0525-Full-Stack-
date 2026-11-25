@@ -1,3 +1,15 @@
+/*
+ * ASINCRONÍA:
+ * Permite ejecutar operaciones sin bloquear el resto del
+ * código mientras espera respuestas que tardan en completarse,
+ * como temporizadores o solicitudes a APIs.
+ *
+ * PROMESA:
+ * Es un objeto que representa el resultado eventual
+ * de una operación asincrónica.
+ * Puede resolverse con éxito o rechazarse si ocurre un error.
+ */
+
 /* **********************CALLBACK *************************/
 
 /**
@@ -18,9 +30,16 @@ saludar("Bruno", despedir);
 
 /* **********************SETTIMEOUT() **************************/
 
+// setTimeout no bloquea el resto del código: programa una
+// tarea para ejecutarla después del tiempo indicado y
+// permite continuar con las siguientes instrucciones.
+console.log("Inicio");
+
 setTimeout(() => {
-  console.log("Hola");
+  console.log("Han pasado 3 segundos");
 }, 3000);
+
+console.log("Fin");
 
 /* **********************OBJETO PROMISE **********************/
 
@@ -40,7 +59,47 @@ promesa
   .then((resultado) => console.log(resultado))
   .catch((error) => console.log(error));
 
-/* -------------------------------------- */
+/* ------------------------PROMISE ALL------------------------------- */
+
+// Promise.all: ejecuta varias promesas a la vez y espera a que todas terminen.
+// El resultado es un array con los valores en el mismo orden de las promesas.
+const tareaRapida = new Promise((resolve) => {
+  setTimeout(() => resolve("Primera tarea completada"), 1000);
+});
+
+const tareaLenta = new Promise((resolve) => {
+  setTimeout(() => resolve("Segunda tarea completada"), 3000);
+});
+
+Promise.all([tareaRapida, tareaLenta])
+  .then((resultados) => {
+    console.log("Promise.all:", resultados);
+  })
+  .catch((error) => {
+    console.log("Una promesa fue rechazada:", error);
+  });
+
+/* --------------------------PROMISE RACE------------------------------- */
+
+// Promise.race: obtiene el resultado de la primera promesa que termine,
+// sin esperar a las demás.
+const promesaUno = new Promise((resolve) => {
+  setTimeout(() => resolve("Ganó la promesa 1"), 1000);
+});
+
+const promesaDos = new Promise((resolve) => {
+  setTimeout(() => resolve("Ganó la promesa 2"), 3000);
+});
+
+Promise.race([promesaUno, promesaDos])
+  .then((resultado) => {
+    console.log("Promise.race:", resultado);
+  })
+  .catch((error) => {
+    console.log("La primera promesa fue rechazada:", error);
+  });
+
+/* ------------------------------------------------------- */
 
 async function obtenerDatos() {
   return new Promise((resolve, reject) => {

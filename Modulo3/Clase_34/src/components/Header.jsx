@@ -3,6 +3,7 @@ import { useCarritoStore } from "../store/carritoStore";
 
 export const Header = () => {
   const totalItems = useCarritoStore((state) =>
+    // reduce recorre los items y suma sus cantidades para mostrar el total de unidades en el carrito.
     state.items.reduce((total, item) => total + item.cantidad, 0),
   );
   return (

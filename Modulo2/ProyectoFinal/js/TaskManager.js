@@ -6,15 +6,21 @@ export class TaskManager {
     this.nextId = 1;
   }
 
-  /* Agregar tareas */
+  /* Buscar una tarea por su id */
+  buscarPorId(id) {
+    return this.tareas.find((t) => t.id === id);
+  }
+
+  /* Agregar una tarea */
   agregar(nombre, prioridad, vencimiento) {
-    const tarea = new Task(this.nextId++, nombre, prioridad, vencimiento);
+    const tarea = new Task(this.nextId, nombre, prioridad, vencimiento);
     this.tareas.push(tarea);
+    this.nextId = this.nextId + 1;
   }
 
   /* Editar una tarea */
   editar(id, nombre, prioridad, vencimiento) {
-    const tarea = this.tareas.find((t) => t.id === id);
+    const tarea = this.buscarPorId(id);
 
     if (tarea) {
       tarea.nombre = nombre;
@@ -23,27 +29,27 @@ export class TaskManager {
     }
   }
 
-  /* Eliminar */
+  /* Eliminar una tarea */
   eliminar(id) {
     this.tareas = this.tareas.filter((t) => t.id !== id);
   }
 
-  /* Marcar tarea como completada */
+  /* Marcar o desmarcar una tarea como completada */
   marcarCompletada(id) {
-    const tarea = this.tareas.find((t) => t.id === id);
+    const tarea = this.buscarPorId(id);
 
     if (tarea) {
       tarea.completada = !tarea.completada;
     }
   }
 
-  /* obtener tareas completadas */
+  /* Obtener las tareas completadas */
   obtenerCompletadas() {
-    return this.tareas.filter((t) => !t.completada);
+    return this.tareas.filter((t) => t.completada);
   }
 
-  /* obtener tareas completadas */
+  /* Obtener las tareas pendientes */
   obtenerPendientes() {
-    return this.tareas.filter((t) => !t.completada).length;
+    return this.tareas.filter((t) => !t.completada);
   }
 }

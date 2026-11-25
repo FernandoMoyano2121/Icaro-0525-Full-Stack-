@@ -11,6 +11,7 @@ function BotonTema() {
 }
 
 function Header() {
+  // El selector lee darkMode y limita la suscripción a ese valor.
   const darkMode = useTamaStore((state) => state.darkMode);
 
   return (
@@ -36,6 +37,7 @@ function CardEjemplo() {
 }
 
 export const TemaApp = () => {
+  // El componente se vuelve a renderizar cuando cambia el valor seleccionado.
   const darkMode = useTamaStore((state) => state.darkMode);
 
   return (

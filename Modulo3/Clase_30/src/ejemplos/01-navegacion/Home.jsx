@@ -1,4 +1,4 @@
-import React from "react";
+import { styles } from "../../shared/styles";
 
 export const Home = () => {
   return (
@@ -7,13 +7,4 @@ export const Home = () => {
       <p>Bienvenido a nuestra aplicación con React Router</p>
     </div>
   );
-};
-
-const styles = {
-  pagina: {
-    background: "#f8f9fa",
-    padding: "40px",
-    borderRadius: "8px",
-    textAlign: "center",
-  },
 };

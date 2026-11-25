@@ -4,12 +4,16 @@ import { useFetch } from "../hooks/useFetch";
 import { Header } from "../components/Header";
 
 export const ProductoDetalle = () => {
+  // useSearchParams devuelve un arreglo con los parámetros actuales
+  // y una función para modificarlos; aquí tomamos solo los parámetros.
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const API_URL = `${import.meta.env.VITE_API_BASE_URL}/products/${id}`;
 
   const agregarProducto = useCarritoStore((state) => state.agregarProductos);
 
+  // Renombra localmente la propiedad data como producto para usar un nombre más claro en esta página;
+  // el nombre de la propiedad del objeto devuelto por useFetch no se modifica.
   const { data: producto, loading, error } = useFetch(API_URL);
 
   if (!id) {

@@ -1,0 +1,5 @@
+[
+  { "nombre": "Repasar clases de JS", "prioridad": "Alta", "vencimiento": "2026-12-01" },
+  { "nombre": "Armar el README", "prioridad": "Media", "vencimiento": "2026-12-05" },
+  { "nombre": "Subir el proyecto a GitHub", "prioridad": "Baja", "vencimiento": "2026-12-10" }
+]

@@ -3,14 +3,14 @@
 if(condicion){
   codigo a ejecuta...
 } 
-
+-----------------------------------
 if(condicion){
   codigo a ejecutar si la condicion es verdadera
 
 }else{
   //codigo a ejecutar si la condicion es falsa
 }
-  
+------------------------------------- 
 if(condicion){
   codigo a ejecutar...
 }else if(condicion){

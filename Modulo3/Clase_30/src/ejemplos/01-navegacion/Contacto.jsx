@@ -1,3 +1,5 @@
+import { styles } from "../../shared/styles";
+
 export const Contacto = () => {
   return (
     <div style={styles.pagina}>
@@ -5,13 +7,4 @@ export const Contacto = () => {
       <p>Pagina de Contacto</p>
     </div>
   );
-};
-
-const styles = {
-  pagina: {
-    background: "#f8f9fa",
-    padding: "40px",
-    borderRadius: "8px",
-    textAlign: "center",
-  },
 };

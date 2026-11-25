@@ -2,9 +2,13 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 
+// Obtengo la ruta completa del archivo actual. En módulos ES (__filename no existe
+// automáticamente) necesito convertir import.meta.url a una ruta de archivo.
 const __filename = fileURLToPath(import.meta.url);
 console.log(__filename);
 
+// Obtengo la carpeta que contiene este archivo. La uso para construir rutas
+// absolutas y servir correctamente las vistas y los archivos públicos.
 const __dirname = path.dirname(__filename);
 console.log(__dirname);
 
@@ -15,6 +19,8 @@ app.set("views", path.join(__dirname, "views"));
 
 //configuracion de los archivos estáticos
 app.use(express.static(path.join(__dirname, "public")));
+
+/* --------------------------------------------------------------- */
 
 app.get("/", (req, res) => {
   res.render("index", { nombre: "Enrique", apellido: "Temperini" });

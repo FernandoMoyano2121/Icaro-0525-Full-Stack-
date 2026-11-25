@@ -4,21 +4,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/styles.css">
   <title>Document</title>
 </head>
 
 <body>
-  <%- include("partials/header.ejs") %>
   <div>
-    <ul>
-      <% usuarios.forEach(usuario=> {%>
-      <li> <%= usuario %> </li>
-      <% }) %>
-    </ul>
-  </div>
+    <%- include("../partials/header") %>
 
-  <%- include("partials/footer.ejs") %>
+    <div>
+      <ul class="user-list">
+        <% usuarios.forEach(usuario => { %>
+        <li class="user-item"><%= usuario %></li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <%- include("../partials/footer") %>
+  </div>
 </body>
 
 </html>

@@ -2,7 +2,7 @@ import { useCarritoStore } from "../store/carritoStore";
 
 export const Carrito = () => {
   const items = useCarritoStore((state) => state.items);
-  const eleminarProducto = useCarritoStore((state) => state.eleminarProducto);
+  const eliminarProducto = useCarritoStore((state) => state.eliminarProducto);
   const actualizarCantidad = useCarritoStore(
     (state) => state.actualizarCantidad,
   );
@@ -39,7 +39,7 @@ export const Carrito = () => {
             +
           </button>
           <span>{item.cantidad * item.precio}</span>
-          <button onClick={() => eleminarProducto(item.id)}>🗑️</button>
+          <button onClick={() => eliminarProducto(item.id)}>🗑️</button>
         </div>
       ))}
       <div>

@@ -4,7 +4,7 @@ import { TemaApp } from "./examples/TemaApp";
 const App = () => {
   return (
     <div>
-      {/*   <ContadorBasico /> */}
+      {/* <ContadorBasico /> */}
       <TemaApp />
     </div>
   );

@@ -4,5 +4,13 @@ import { TaskUi } from "./TaskUi.js";
 const manager = new TaskManager();
 const taskUi = new TaskUi(manager);
 
-//TODO: Ejecutar metodo render
-taskUi.render();
+//Version anterior: arrancar con la lista vacia y renderizar solo lo que se va agregando
+// taskUi.render();
+
+//Cargar las tareas iniciales desde el archivo JSON y despues renderizar
+fetch("./tareas.json")
+  .then((respuesta) => respuesta.json())
+  .then((tareas) => {
+    tareas.forEach((t) => manager.agregar(t.nombre, t.prioridad, t.vencimiento));
+    taskUi.render();
+  });

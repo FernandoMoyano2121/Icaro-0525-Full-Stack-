@@ -35,7 +35,9 @@ export const ListadoProductos = () => {
             <span>{producto.title}</span>
             <span>{producto.price}</span>
 
-            <Link to={`/producto?id=${producto.id}`}>Ver Detalle</Link>
+            <button>
+              <Link to={`/producto?id=${producto.id}`}>Ver Detalle</Link>
+            </button>
 
             <button
               onClick={() =>

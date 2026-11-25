@@ -1,4 +1,4 @@
-import { useContadorStore } from "../store/ContadorStore";
+import { useContadorStore } from "../store/contadorStore";
 
 const ContadorBasico = () => {
   const { contador, incrementar, decrementar, resetear } = useContadorStore();

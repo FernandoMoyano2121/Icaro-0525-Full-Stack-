@@ -81,3 +81,25 @@ footer {
   border-radius: 10px;
   text-align: center;
 }
+
+.user-list {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+}
+.user-item {
+  padding: 14px 18px;
+  border-left: 4px solid #667eea;
+  border-radius: 8px;
+  background: #f8f9fa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.user-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}

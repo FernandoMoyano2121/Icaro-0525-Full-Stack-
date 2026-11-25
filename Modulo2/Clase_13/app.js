@@ -76,6 +76,24 @@ saludar();
 }
 */
 
+/* ************* EJEMPLO SENCILLO DE RETURN **********/
+
+/*
+  En JavaScript, return finaliza la ejecucion de una funcion y devuelve
+  un valor al lugar desde donde fue llamada. 
+  
+  Ese valor se puede guardar en una variable o utilizar en otra expresion. 
+  return no muestra el valor en la consola; para verlo, hay que usar console.log. 
+  Si una funcion termina sin ejecutar return, devuelve undefined.
+*/
+
+function ejemploReturn() {
+  return "Hola";
+}
+
+let mensajeRetornado = ejemploReturn();
+console.log(mensajeRetornado); // return entrega "Hola" a quien llamó la función
+
 /* ************* FUNCION QUE RETORNA UNA VARIABLE **********/
 
 function sumar(a, b) {
@@ -91,6 +109,7 @@ console.log(resultado);
 sumar(3, 6);
 
 /* ***************** FUNCION ANONIMA *****************/
+
 const sumar = function (a, b) {
   return a + b;
 };

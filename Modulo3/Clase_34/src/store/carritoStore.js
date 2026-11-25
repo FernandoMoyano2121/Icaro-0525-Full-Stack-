@@ -20,13 +20,15 @@ export const useCarritoStore = create((set, get) => ({
         return {
           items: state.items.map((item) =>
             item.id === producto.id
-              ? { ...item, cantidad: item.cantidad + 1 }
+              ? // Copia las propiedades del item sin mutarlo y reemplaza cantidad por su valor actual + 1.
+                { ...item, cantidad: item.cantidad + 1 }
               : item,
           ),
         };
       }
 
       return {
+        // Copia los datos del producto y agrega cantidad inicial para guardarlo como item del carrito.
         items: [...state.items, { ...producto, cantidad: 1 }],
       };
     }),
@@ -44,6 +46,7 @@ export const useCarritoStore = create((set, get) => ({
   actualizarCantidad: (productoId, cantidad) =>
     set((state) => ({
       items: state.items.map((item) =>
+        // Conserva las demás propiedades del item y crea una copia con la cantidad actualizada.
         item.id === productoId ? { ...item, cantidad: cantidad } : item,
       ),
     })),
@@ -52,6 +55,7 @@ export const useCarritoStore = create((set, get) => ({
 
   getTotalItems: () => {
     const state = get();
+    // Suma las cantidades de todos los items; 0 es el valor inicial si el carrito está vacío.
     return state.items.reduce(
       (accumulator, item) => accumulator + item.cantidad,
       0,
@@ -60,6 +64,7 @@ export const useCarritoStore = create((set, get) => ({
 
   getTotalPrecio: () => {
     const state = get();
+    // Acumula el subtotal de cada item (precio por cantidad) para obtener el total del carrito.
     return state.items.reduce(
       (accumulator, item) => accumulator + item.precio * item.cantidad,
       0,

@@ -8,3 +8,50 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+/* Personalizacion del componente navbar de Bootstrap */
+.navbar-custom {
+  background-color: #172554; /* Define el color de fondo azul oscuro */
+  box-shadow: 0 3px 10px rgb(0 0 0 / 20%); /* Agrega una sombra debajo del menu */
+  padding: 1rem 0; /* Aumenta el espacio vertical interno */
+}
+
+.navbar-custom .navbar-brand {
+  color: #fef3c7; /* Cambia el color del nombre de la pagina */
+  font-weight: 700; /* Hace que el nombre se vea mas destacado */
+  letter-spacing: 0.04em; /* Separa levemente las letras */
+}
+
+/*
+  Selector de descendencia: aplica estilos a .nav-link cuando esta dentro de
+  .navbar-custom. Las clases pertenecen a elementos diferentes.
+
+  Ejemplo minimo:
+  <nav class="navbar-custom">
+    <a class="nav-link" href="#">Inicio</a>
+  </nav>
+*/
+.navbar-custom .nav-link {
+  color: #dbeafe; /* Define el color de los enlaces */
+  margin-left: 0.5rem; /* Separa los enlaces entre si */
+  transition: color 0.2s ease; /* Suaviza el cambio de color */
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link.active {
+  color: #fef3c7; /* Resalta el enlace activo o seleccionado */
+}
+
+.navbar-custom .navbar-toggler {
+  border-color: #dbeafe; /* Cambia el color del borde del boton movil */
+}
+
+.navbar-custom .navbar-toggler-icon {
+  filter: brightness(0) invert(1); /* Convierte el icono en color claro */
+}
+
+@media (max-width: 991px) {
+  .navbar-custom .nav-link {
+    margin-left: 0; /* Elimina el margen lateral adicional en movil */
+  }
+}

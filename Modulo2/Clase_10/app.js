@@ -19,11 +19,11 @@ tuNombre = "David"; */
 
 /* OPERADORES */
 
-//= Asignación
-//+ adición
-//- Sustracción
-//* Multiplicación
-/// División
+// = Asignación
+// + adición
+// - Sustracción
+// * Multiplicación
+// / División
 
 //OPERADORS LOGICOS
 // && "Y"

@@ -1,122 +1,36 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import { Home } from "./components/Home";
-import { About } from "./components/About";
-import { NavBar } from "./components/NavBar";
-import { Contacto } from "./components/Contacto";
-import { Footer } from "./components/Footer";
-import { EjemploParams } from "./parametros/EjemploParams";
-import { Login } from "./components/Login";
-import { ProtectedRoute } from "./components/ProtectedRoute";
-import { Dashboard } from "./components/Dashboard";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { NavBar } from "./shared/NavBar";
+import { Footer } from "./shared/Footer";
+import { Indice } from "./shared/Indice";
+import { styles } from "./shared/styles";
+import { Navegacion } from "./ejemplos/01-navegacion/Navegacion";
+import { Params } from "./ejemplos/02-params/Params";
+import { Protegidas } from "./ejemplos/03-rutas-protegidas/Protegidas";
 
 export const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-        <div style={styles.container}>
-          <header style={styles.header}>
-            <h2>Navegacion con Link</h2>
-          </header>
-          <NavBar />
-          <main style={styles.main}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contacto" element={<Contacto />} />
-
-              {/* ----------------- RUTAS PROTEGIDAS -------------- */}
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <div style={styles.container}>
+        <header style={styles.header}>
+          <h2>Ejemplos de React Router</h2>
+        </header>
+        <NavBar />
+        <main style={styles.main}>
+          <Routes>
+            <Route path="/" element={<Indice />} />
+            {/*
+                El "/*" (splat) hace que la ruta coincida con /navegacion y con
+                todo lo que venga después (/navegacion/about, etc.). La parte
+                restante la resuelve el <Routes> interno de cada ejemplo, con
+                rutas relativas. Sin el "/*", solo coincidiría /navegacion. 
+            */}
+            <Route path="/navegacion/*" element={<Navegacion />} />
+            <Route path="/params/*" element={<Params />} />
+            <Route path="/protegidas/*" element={<Protegidas />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
-};
-
-/************************  USE PARAMS ****************************/
-
-/* export const App = () => {
-  return (
-    <div>
-      <EjemploParams />
-    </div>
-  );
-}; */
-
-/************************  ESTILOS  ****************************/
-
-const styles = {
-  container: {
-    fontFamily: "Arial, sans-serif",
-    maxWidth: "800px",
-    margin: "0 auto",
-    padding: "20px",
-  },
-  header: {
-    background: "#28a745",
-    color: "white",
-    padding: "20px",
-    borderRadius: "8px",
-    marginBottom: "20px",
-    textAlign: "center",
-  },
-  nav: {
-    display: "flex",
-    gap: "10px",
-    justifyContent: "center",
-    padding: "15px",
-    background: "#f8f9fa",
-    borderRadius: "8px",
-    marginBottom: "20px",
-  },
-  link: {
-    padding: "10px 20px",
-    background: "#007bff",
-    color: "white",
-    textDecoration: "none",
-    borderRadius: "5px",
-    transition: "background 0.3s",
-  },
-  main: {
-    minHeight: "300px",
-  },
-  pagina: {
-    background: "#f8f9fa",
-    padding: "40px",
-    borderRadius: "8px",
-    textAlign: "center",
-  },
-  comparacion: {
-    marginTop: "20px",
-    textAlign: "left",
-    background: "#fff",
-    padding: "20px",
-    borderRadius: "8px",
-  },
-  codigo: {
-    display: "block",
-    background: "#1e1e1e",
-    color: "#9cdcfe",
-    padding: "15px",
-    borderRadius: "5px",
-    whiteSpace: "pre-wrap",
-    fontSize: "14px",
-  },
-  footer: {
-    marginTop: "20px",
-    padding: "15px",
-    background: "#d4edda",
-    borderRadius: "8px",
-    textAlign: "center",
-  },
 };

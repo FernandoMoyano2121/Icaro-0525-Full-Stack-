@@ -16,85 +16,123 @@
     <title>Clase 7</title>
   </head>
   <body>
-    <p class="bg-success text-light">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
-    </p>
+    <!-- NAVBAR: menu de navegacion responsive de Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+      <div class="container">
+        <a class="navbar-brand" href="#">Clase 7</a>
 
-    <div class="w-75 d-flex justify-content-center contenedor">
-      <div class="hijo">1</div>
-      <div class="hijo">2</div>
-      <div class="hijo">3</div>
-    </div>
+        <!-- Boton que muestra u oculta el menu en pantallas pequenas -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#menuPrincipal"
+          aria-controls="menuPrincipal"
+          aria-expanded="false"
+          aria-label="Mostrar navegacion"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <!-- CONTAINER -->
-
-    <p class="text-center container-fluid bg-warning">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
-    </p>
-
-    <!-- GRID -->
-
-    <br /><br /><br /><br />
-
-    <div class="container">
-      <div class="row overflow-hidden">
-        <div class="col-9 border col-sm-6 col-md-8 bg-secondary">1</div>
-        <div class="col border bg-warning">2</div>
-        <div class="col border bg-primary">3</div>
-      </div>
-
-      <div class="row">
-        <div class="col bg-warning">4</div>
-        <div class="col bg-primary">5</div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-8 bg-primary">6</div>
-        <div class="col-sm-4 bg-warning">7</div>
-      </div>
-    </div>
-
-    <!-- CARD -->
-
-    <main>
-      <section class="container">
-        <div class="row">
-          <div class="col card" style="width: 18rem">
-            <img
-              src="https://placehold.co/400"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card’s content.
-              </p>
-              <a href="#" class="btn btn-primary">Ver Más</a>
-            </div>
-          </div>
-
-          <div class="col card" style="width: rem">
-            <img
-              src="https://placehold.co/400"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text text-primary">
-                Some quick example text to build on the card title and make up
-                the bulk of the card’s content.
-              </p>
-              <a href="#" class="btn btn-primary">Ver Más</a>
-            </div>
-          </div>
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#inicio">
+                Inicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#grid">Grid</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tarjetas">Tarjetas</a>
+            </li>
+          </ul>
         </div>
-      </section>
-    </main>
+      </div>
+    </nav>
+
+    <div id="inicio">
+      <p class="bg-success text-light">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
+      </p>
+
+      <div class="w-75 d-flex justify-content-center contenedor">
+        <div class="hijo">1</div>
+        <div class="hijo">2</div>
+        <div class="hijo">3</div>
+      </div>
+
+      <!-- CONTAINER -->
+
+      <p class="text-center container-fluid bg-warning">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ullam?
+      </p>
+
+      <!-- GRID -->
+
+      <br /><br /><br /><br />
+
+      <div class="container" id="grid">
+        <div class="row overflow-hidden">
+          <div class="col-9 border col-sm-6 col-md-8 bg-secondary">1</div>
+          <div class="col border bg-warning">2</div>
+          <div class="col border bg-primary">3</div>
+        </div>
+
+        <div class="row">
+          <div class="col bg-warning">4</div>
+          <div class="col bg-primary">5</div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-8 bg-primary">6</div>
+          <div class="col-sm-4 bg-warning">7</div>
+        </div>
+      </div>
+
+      <!-- CARD -->
+
+      <main>
+        <section class="container" id="tarjetas">
+          <div class="row">
+            <div class="col-12 col-md-6 card">
+              <img
+                src="https://placehold.co/400"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card’s content.
+                </p>
+                <a href="#" class="btn btn-primary">Ver Más</a>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 card">
+              <img
+                src="https://placehold.co/400"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text text-primary">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card’s content.
+                </p>
+                <a href="#" class="btn btn-primary">Ver Más</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <!-- link bootstrap -->
     <script

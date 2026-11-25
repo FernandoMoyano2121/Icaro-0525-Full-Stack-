@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diagrama de secuencia - Gestión de tareas</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+        color: #333;
+        line-height: 1.6;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      .diagrama {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+      code {
+        background: #f3f3f3;
+        padding: 2px 5px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>¿En qué orden se ejecuta la app de tareas?</h1>
+    <p>
+      El diagrama se lee de arriba hacia abajo: cada flecha es un paso. Tiene
+      dos momentos: el <strong>arranque</strong> (pasa una sola vez, al abrir la
+      página) y <strong>agregar una tarea</strong> (pasa cada vez que el usuario
+      hace click).
+    </p>
+
+    <div class="diagrama">
+      <pre class="mermaid">
+sequenceDiagram
+  participant H as index.html
+  participant A as app.js
+  participant M as TaskManager
+  participant U as TaskUi
+  participant T as Task
+
+  Note over H,T: 1. Arranque de la app
+  H->>A: carga el script (type="module")
+  A->>M: new TaskManager()
+  A->>U: new TaskUi(manager)
+  U->>H: getElementById(...) y addEventListener("click")
+  A->>U: render()
+  U->>H: muestra "Tareas pendientes 0"
+
+  Note over H,T: 2. El usuario hace click en "Agregar"
+  H->>U: click → handleAgregar()
+  U->>H: lee los valores del formulario
+  U->>M: agregar(nombre, prioridad, vencimiento)
+  M->>T: new Task(id, nombre, ...)
+  T-->>M: devuelve la tarea
+  U->>U: limpiarFormulario()
+  U->>U: render()
+  U->>M: pide manager.tareas
+  U->>H: dibuja un li por cada tarea
+      </pre>
+    </div>
+
+    <p>
+      Fijate que <code>TaskUi</code> nunca crea una <code>Task</code> por su
+      cuenta: siempre se lo pide al <code>TaskManager</code>. Editar, eliminar y
+      marcar como completada siguen el mismo patrón: <code>TaskUi</code> le pide
+      algo al manager y después llama a <code>render()</code>.
+    </p>
+
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, sequence: { mirrorActors: false } });
+    </script>
+  </body>
+</html>

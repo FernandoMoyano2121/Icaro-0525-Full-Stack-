@@ -4,7 +4,9 @@ import userRoutes from "./routes/user.routes.js";
 const app = express();
 
 app.use(json());
-app.use("/users", userRoutes); //http://localhost:3000/users
+// "/users" es el prefijo o ruta base que monta las rutas de userRoutes
+// Ejemplo: http://localhost:3000/users
+app.use("/users", userRoutes);
 
 app.listen(3000, () => {
   console.log("Servidor corriendo en http://localhost:3000");
